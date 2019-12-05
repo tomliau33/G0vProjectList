@@ -124,7 +124,7 @@ export default class Main extends Vue {
                 }
 
                 vm.flush();
-                console.log(response)
+                //console.log(response)
             })
   }
 
