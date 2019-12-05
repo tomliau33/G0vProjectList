@@ -100,6 +100,8 @@ export default class Main extends Vue {
 
       candidates.push(item);
     })
+
+    candidates.reverse()
     this.items = [...candidates];
   }
 
