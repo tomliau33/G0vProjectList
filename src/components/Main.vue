@@ -17,7 +17,7 @@
                 <th>名稱</th>
                 <th width="120">擁有者</th>
                 <th>介紹</th>
-                <th>標籤</th>
+                <th width="180">標籤</th>
               </tr>
             </thead>
             <tbody>
@@ -122,7 +122,7 @@ export default class Main extends Vue {
                         Owner: element[11],
                         Description: element[4],
                         Link: element[6],
-                        Tags: element[26]
+                        Tags: element[22]
                     }
                     vm.all_items.push(mitem);
                 }
