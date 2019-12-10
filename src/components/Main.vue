@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <h1> {{ msg }} </h1>
-
+    <modals-container/>
+    <h2> {{ msg }} </h2>
     <table>
       <tr>
         <td colspan="1" align="left">
@@ -45,20 +45,23 @@
         </td>
       </tr>
     </table>
-
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import axios from 'axios'
+import axios from 'axios';
+import InfoModal from '@/components/Info.vue'
+import VModal from 'vue-js-modal';
+
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
 
 @Component
 export default class Main extends Vue {
   @Prop() private msg!: string;
   
-  selected: string = "";
   all_items: any[] = [];
+  fields: any[] = [];
   items: any[] = [];
   keyword: string = "";
   qdate: string = "";
@@ -114,6 +117,7 @@ export default class Main extends Vue {
             )
             .then(function (response) {
                 let specials = response.data.values
+                vm.fields = specials[0];
                 for (let index = 1; index < specials.length; index++) {
                     const element = specials[index]
                     let mitem = {
@@ -122,7 +126,8 @@ export default class Main extends Vue {
                         Owner: element[11],
                         Description: element[4],
                         Link: element[6],
-                        Tags: element[22]
+                        Tags: element[22],
+                        Element: element
                     }
                     vm.all_items.push(mitem);
                 }
@@ -133,8 +138,16 @@ export default class Main extends Vue {
   }
 
   showItem(item: any) {
-    this.selected = item
+      this.$modal.show(InfoModal, {
+        fields: this.fields,
+        infos: item.Element
+      }, {
+        width: '80%',
+        height: "auto"
+      }, {
+      });
   }
+
 }
 </script>
 
