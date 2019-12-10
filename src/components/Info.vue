@@ -1,5 +1,12 @@
 <template>
   <div class="info">
+    <table id='title'>
+      <thead>
+        <tr>
+          <td colspan='2'>{{ title }}</td>
+        </tr>
+      </thead>
+    </table>
     <table border="1" class="comicRed">
     <thead>
         <tr>
@@ -23,6 +30,7 @@ import Vue from 'vue-property-decorator';
 
 export default {
     props: {
+        title: [],
         fields: [],
         infos: []
     },

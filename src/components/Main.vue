@@ -28,12 +28,12 @@
                 <td><input type="text" class="qfield" @change="flush" v-model="qdescription" placeholder="description"></td>
                 <td><input type="text" class="qfield" @change="flush" v-model="qtag" placeholder="tag"></td>
               </tr>
-              <tr v-for="item in items" :key="item" @click="showItem(item)">
-                <td :title='item["Date"]'>{{ item["Date"] }}</td>
+              <tr v-for="item in items" :key="item">
+                <td :title='item["Date"]' @click="showItem(item)">{{ item["Date"] }}</td>
                 <td :title='item["Project"]'><a :href='item["Link"]' target='_blank'>{{ item["Project"] }}</a></td>
-                <td :title='item["Owner"]'>{{ item["Owner"] }}</td>
-                <td :title='item["Description"]'>{{ item["Description"] }}</td>
-                <td :title='item["Tags"]'>{{ item["Tags"] }}</td>
+                <td :title='item["Owner"]' @click="showItem(item)">{{ item["Owner"] }}</td>
+                <td :title='item["Description"]' @click="showItem(item)">{{ item["Description"] }}</td>
+                <td :title='item["Tags"]' @click="showItem(item)">{{ item["Tags"] }}</td>
               </tr>
             </tbody>
           </table>
@@ -56,13 +56,23 @@ import VModal from 'vue-js-modal';
 
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
 
+interface ProjectInfo {
+    Date: string,
+    Project: string,
+    Owner: string,
+    Description: string,
+    Link: string,
+    Tags: string,
+    Element: any[]
+}
+
 @Component
 export default class Main extends Vue {
   @Prop() private msg!: string;
   
-  all_items: any[] = [];
-  fields: any[] = [];
-  items: any[] = [];
+  all_items: ProjectInfo[] = [];
+  fields: string[] = [];
+  items: ProjectInfo[] = [];
   keyword: string = "";
   qdate: string = "";
   qproject: string = "";
@@ -83,7 +93,7 @@ export default class Main extends Vue {
   }
 
   flush() {
-    let candidates: any[] = [];
+    let candidates: ProjectInfo[] = [];
     this.all_items.filter( item => {
       if (this.keyword.length > 0) {
         if (this.check(this.keyword, item.Date) &&
@@ -137,8 +147,9 @@ export default class Main extends Vue {
             })
   }
 
-  showItem(item: any) {
+  showItem(item: ProjectInfo) {
       this.$modal.show(InfoModal, {
+        title: item.Project,
         fields: this.fields,
         infos: item.Element
       }, {
