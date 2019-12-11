@@ -10,7 +10,7 @@
     <table border="1" class="comicRed">
     <thead>
         <tr>
-        <th width='200'>欄位名稱</th>
+        <th width='25%'>欄位名稱</th>
         <th>內容</th>
         </tr>
     </thead>

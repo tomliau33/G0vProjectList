@@ -13,11 +13,11 @@
           <table border="1" width="100%" class="comicGreen">
             <thead>
               <tr>
-                <th width="120">日期</th>
-                <th>名稱</th>
-                <th width="120">擁有者</th>
+                <th width="10%">日期</th>
+                <th width="35%">名稱</th>
+                <th width="10%">擁有者</th>
                 <th>介紹</th>
-                <th width="180">標籤</th>
+                <th width="10%">標籤</th>
               </tr>
             </thead>
             <tbody>
@@ -154,7 +154,8 @@ export default class Main extends Vue {
         infos: item.Element
       }, {
         width: '80%',
-        height: "auto"
+        height: "auto",
+        scrollable: true
       }, {
       });
   }
